@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CvModule } from './cv/cv.module';
 import { CvEventModule } from './cv-event/cv-event.module';
+import { SseModule } from './sse/sse.module';
 import { User } from './user/entities/user.entity';
 import { Cv } from './cv/entities/cv.entity';
 import { CvEvent } from './cv-event/entities/cv-event.entity';
@@ -16,7 +17,7 @@ import { CvEvent } from './cv-event/entities/cv-event.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: '123',
       database: 'cvtech',
       entities: [User, Cv, CvEvent],
       synchronize: true,
@@ -26,6 +27,7 @@ import { CvEvent } from './cv-event/entities/cv-event.entity';
     UserModule,
     CvModule,
     CvEventModule,
+    SseModule,
   ],
 })
 export class AppModule {}
