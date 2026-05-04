@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CvModule } from './cv/cv.module';
 import { CvEventModule } from './cv-event/cv-event.module';
 import { SseModule } from './sse/sse.module';
+import { ChatModule } from './chat/chat.module';
 import { User } from './user/entities/user.entity';
 import { Cv } from './cv/entities/cv.entity';
 import { CvEvent } from './cv-event/entities/cv-event.entity';
@@ -28,6 +31,7 @@ import { CvEvent } from './cv-event/entities/cv-event.entity';
     CvModule,
     CvEventModule,
     SseModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

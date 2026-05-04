@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Cv } from '../../cv/entities/cv.entity';
 
 export enum UserRole {
