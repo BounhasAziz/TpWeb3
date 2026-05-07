@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -12,6 +10,8 @@ import { ChatModule } from './chat/chat.module';
 import { User } from './user/entities/user.entity';
 import { Cv } from './cv/entities/cv.entity';
 import { CvEvent } from './cv-event/entities/cv-event.entity';
+import { Message } from './chat/entities/message.entity';
+import { Reaction } from './chat/entities/reaction.entity';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { CvEvent } from './cv-event/entities/cv-event.entity';
       username: 'root',
       password: '123',
       database: 'cvtech',
-      entities: [User, Cv, CvEvent],
+      entities: [User, Cv, CvEvent, Message, Reaction],
       synchronize: true,
     }),
     EventEmitterModule.forRoot(),

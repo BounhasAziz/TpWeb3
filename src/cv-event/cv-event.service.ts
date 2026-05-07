@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { OnEvent } from '@nestjs/event-emitter';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CvEvent } from './entities/cv-event.entity';
 import { CvEventType } from './enums/cv-event-type.enum';
@@ -13,10 +14,20 @@ export class CvEventService {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  async logEvent(type: CvEventType, cvId: number, userId: number): Promise<void> {
-    const event = this.cvEventRepo.create({ type, cvId, userId });
+  @OnEvent('cv.operation')
+  async handleCvOperation(data: {
+    type: CvEventType;
+    cvId: number;
+    userId: number;
+    ownerId: number;
+  }): Promise<void> {
+    const event = this.cvEventRepo.create({
+      type: data.type,
+      cvId: data.cvId,
+      userId: data.userId,
+    });
     await this.cvEventRepo.save(event);
-    this.eventEmitter.emit('cv.event', { type, cvId, userId, date: new Date() });
+    this.eventEmitter.emit('cv.event', { ...data, date: new Date() });
   }
 
   findAll(): Promise<CvEvent[]> {

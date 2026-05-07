@@ -21,10 +21,17 @@ export class SseService {
   }
 
   @OnEvent('cv.event')
-  handleCvEvent(event: { cvId: number; userId: number; type: string; date: Date }) {
+  handleCvEvent(event: {
+    cvId: number;
+    userId: number;
+    ownerId: number;
+    type: string;
+    date: Date;
+  }) {
     this.clients.forEach((client) => {
       const isAdmin = client.role.toUpperCase() === 'ADMIN';
-      const isOwner = client.userId === String(event.userId);
+      // notify the CV owner, not just whoever triggered the operation
+      const isOwner = client.userId === String(event.ownerId);
 
       if (isAdmin || isOwner) {
         client.res.write(`data: ${JSON.stringify(event)}\n\n`);

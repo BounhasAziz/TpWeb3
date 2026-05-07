@@ -25,8 +25,8 @@ export class CvController {
   }
 
   @Get()
-  findAll() {
-    return this.cvService.findAll();
+  findAll(@Req() req: any) {
+    return this.cvService.findAll(req.user.sub, req.user.role);
   }
 
   @Get(':id')
@@ -36,11 +36,11 @@ export class CvController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateCvDto, @Req() req: any) {
-    return this.cvService.update(+id, dto, req.user.sub);
+    return this.cvService.update(+id, dto, req.user.sub, req.user.role);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, @Req() req: any) {
-    return this.cvService.remove(+id, req.user.sub);
+    return this.cvService.remove(+id, req.user.sub, req.user.role);
   }
 }
