@@ -7,11 +7,13 @@ import { CvModule } from './cv/cv.module';
 import { CvEventModule } from './cv-event/cv-event.module';
 import { SseModule } from './sse/sse.module';
 import { ChatModule } from './chat/chat.module';
+import { WebhookModule } from './webhook/webhook.module';
 import { User } from './user/entities/user.entity';
 import { Cv } from './cv/entities/cv.entity';
 import { CvEvent } from './cv-event/entities/cv-event.entity';
 import { Message } from './chat/entities/message.entity';
 import { Reaction } from './chat/entities/reaction.entity';
+import { Webhook } from './webhook/entities/webhook.entity';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { Reaction } from './chat/entities/reaction.entity';
       username: 'root',
       password: '123',
       database: 'cvtech',
-      entities: [User, Cv, CvEvent, Message, Reaction],
+      entities: [User, Cv, CvEvent, Message, Reaction, Webhook],
       synchronize: true,
     }),
     EventEmitterModule.forRoot(),
@@ -32,6 +34,7 @@ import { Reaction } from './chat/entities/reaction.entity';
     CvEventModule,
     SseModule,
     ChatModule,
+    WebhookModule,
   ],
 })
 export class AppModule {}
