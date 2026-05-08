@@ -11,7 +11,6 @@ import {
 import { Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './services/chat.service';
-import { CvService } from '../cv/cv.service';
 
 // Types pour les données reçues via WebSocket
 type JoinPayload = { room: string; username: string }; // Pour rejoindre une salle
@@ -47,10 +46,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private readonly logger = new Logger(ChatGateway.name);
 
   // Injection des services
-  constructor(
-    private readonly chatService: ChatService,
-    private readonly cvService: CvService,
-  ) {}
+  constructor(private readonly chatService: ChatService) {}
 
   // Appelée quand un client se connecte au serveur WebSocket
   handleConnection(client: Socket) {
