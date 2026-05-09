@@ -1,7 +1,8 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Req, Res, UseGuards, Get } from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SseService } from './sse.service';
+import { Sse } from './decorators/sse.decorator';
 
 @Controller('events')
 export class SseController {
@@ -9,12 +10,8 @@ export class SseController {
 
   @UseGuards(JwtAuthGuard)
   @Get('stream')
+  @Sse('stream')
   stream(@Req() req: Request, @Res() res: Response) {
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders();
-
     const user = (req as any).user;
     this.sseService.addClient(String(user.sub), String(user.role), res);
 
