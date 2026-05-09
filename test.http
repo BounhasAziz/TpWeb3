@@ -1,0 +1,62 @@
+# ─── 1. Register admin ───────────────────────────────────────────
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@test.com",
+  "password": "admin123",
+  "role": "ADMIN"
+}
+
+###
+
+# ─── 2. Login → copy the access_token ────────────────────────────
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+###
+
+# ─── 3. Register webhook (paste token) ─────────────────
+POST http://localhost:3000/webhooks
+Authorization: Bearer PASTE_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "url": "https://webhook.site/d1253c1a-93f1-4f74-b641-4f0cb082e61e",
+  "secret": "mysecret",
+  "events": ["CREATED", "UPDATED", "DELETED"]
+}
+
+###
+
+# ─── 4. Create a CV → triggers the webhook ───────────────────────
+POST http://localhost:3000/cvs
+Authorization: Bearer PASTE_TOKEN_HERE
+Content-Type: application/json
+
+{
+  "name": "Doe",
+  "firstname": "John",
+  "age": 25,
+  "cin": "12345678",
+  "job": "Developer",
+  "path": ""
+}
+
+###
+
+# ─── 5. List registered webhooks ─────────────────────────────────
+GET http://localhost:3000/webhooks
+Authorization: Bearer PASTE_TOKEN_HERE
+
+###
+
+# ─── 6. List CV events (history) ─────────────────────────────────
+GET http://localhost:3000/cv-events
+Authorization: Bearer PASTE_TOKEN_HERE
