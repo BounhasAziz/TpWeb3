@@ -17,20 +17,6 @@
   - Message history retrieval
 - **How it works**: Client connects via `socket.io`, emits events (`join`, `sendMessage`, `replyToMessage`, `reactToMessage`), and receives live updates via `receiveMessage`, `receiveReply`, `reactionUpdated` events
 
-**Example client usage**:
-
-```js
-const socket = io('http://localhost:3000');
-socket.emit('join', { room: 'cv-1', username: 'john' });
-socket.emit('sendMessage', {
-  room: 'cv-1',
-  username: 'john',
-  userId: 1,
-  content: 'hello',
-});
-socket.on('receiveMessage', (msg) => console.log(msg));
-```
-
 #### 2. **Server-Sent Events (SSE)** - Push Notifications
 
 - **Location**: `src/sse/sse.service.ts`, `src/sse/sse.controller.ts`
