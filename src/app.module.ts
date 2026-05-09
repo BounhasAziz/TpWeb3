@@ -22,7 +22,7 @@ import { Webhook } from './webhook/entities/webhook.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '123',
+      password: 'root',
       database: 'cvtech',
       entities: [User, Cv, CvEvent, Message, Reaction, Webhook],
       synchronize: true,
