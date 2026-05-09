@@ -1,4 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { CvEventType } from '../enums/cv-event-type.enum';
 
 @Entity()
@@ -17,4 +22,7 @@ export class CvEvent {
 
   @Column()
   userId: number;
+
+  @Column({ type: 'json', nullable: true })
+  snapshot: any | null;
 }
